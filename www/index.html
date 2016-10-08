@@ -1,0 +1,152 @@
+<html>
+
+<head>
+<meta charset=”utf-8? />
+<meta name=”format-detection” content=”telephone=no” />
+<meta name=”msapplication-tap-highlight” content=”no” />
+<meta name=”viewport” content=”user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width” />
+<meta http-equiv=”Content-Security-Policy” content=”default-src * ‘unsafe-inline’; style-src ‘self’ ‘unsafe-inline’; media-src *” />
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+<title>Interactive Page</title>
+
+</head>
+<style>
+	body{
+		font-size: 200%;
+	}
+	img {
+		max-width:100%;
+		height:auto;
+	}
+	.game{
+		height: 25vw;
+		width: 25vw;
+	}
+	
+	table, td, tr {
+		border: 3px solid black;
+	}
+	
+	.clickable{
+		background-color: blue;
+	}
+	
+	.superClickable{
+		background-color: red;
+	}
+	
+	.ui-btn{
+		font-size: 200%;
+	}
+	
+</style>
+
+<body>
+	<center>
+	<div>
+		<h1>Clicking sim 2k16</h1>
+		<p><text id="myScore"></text></p>
+	</div>
+	<div style="padding-top: 30px">
+		<table>
+			<tr><td id="1" class="game"></td><td id="2" class="game"></td><td id="3" class="game"></td></tr>
+			<tr><td id="4" class="game"></td><td id="5" class="game"></td><td id="6" class="game"></td></tr>
+			<tr><td id="7" class="game"></td><td id="8" class="game"></td><td id="9" class="game"></td></tr>
+		</table>
+	</div>
+	<div style="height:20vh">
+		<button id="startGame" class="ui-btn">Start game!</button>
+	</div>
+
+	</center>
+</body>
+
+<script>
+	var score = 0;
+	var gameStarted = false;
+	
+	function getRandomNumber(intFrom, intTo){
+		return Math.floor((Math.random() * intTo) +intFrom);
+		}
+	
+	function colorRan(){
+		$("#" + getRandomNumber(1, 9)).addClass("clickable");
+		}
+	
+	$("#startGame").click(
+		function(){
+			if(!gameStarted) {
+			$("#startGame").html("End game!");
+			gameStarted = true;
+			colorRan();
+			}
+			else{
+			$("#startGame").html("Start game!");
+			for(var i=1; i<=9; i += 1){
+				$("#"+i).removeClass("clickable")
+				}
+			$("#myScore").html("Your end score is " + score)
+			score = 0;
+			gameStarted = false;
+			}
+			
+			
+			
+			}
+		);
+		
+	
+	
+	
+	function addScore(){
+		score = score + 1;
+		$("#myScore").html("You have clicked " + score + " times");
+	}
+	
+	function removeScore(){
+		score = score - 1;
+	}
+	
+	$(".game").click(
+		function(){
+			if($(this).attr("class") == "game clickable") {
+				addScore();
+				$(this).removeClass("clickable");
+				$("#" + getRandomNumber(1, 9)).addClass("clickable");
+			}
+			else{
+				if($(this).attr("class") == "game superClickable") {
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				addScore();
+				} 
+				else{
+				removeScore();
+				$("#myScore").html("You cant click that!. You have clicked " + score + " times!")
+				}
+			}
+			}
+	);
+</script>
+
+</html>
