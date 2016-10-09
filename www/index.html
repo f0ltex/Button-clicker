@@ -68,6 +68,15 @@
 	var score = 0;
 	var gameStarted = false;
 	
+	
+	function gameLost(){
+			$("#myScore").html("You lose! Your end score is " + score);
+			score = 0;
+			gameStarted = false;
+			$("#").removeClass("clickable");
+			}
+
+	
 	function getRandomNumber(intFrom, intTo){
 		return Math.floor((Math.random() * intTo) +intFrom);
 		}
@@ -80,6 +89,7 @@
 		function(){
 			if(!gameStarted) {
 			$("#startGame").html("End game!");
+			$("#myScore").html("Game start! Click on all the blue boxes!")
 			gameStarted = true;
 			colorRan();
 			}
@@ -88,7 +98,7 @@
 			for(var i=1; i<=9; i += 1){
 				$("#"+i).removeClass("clickable")
 				}
-			$("#myScore").html("Your end score is " + score)
+			$("#myScore").html("Your end score is " + score);
 			score = 0;
 			gameStarted = false;
 			}
@@ -107,7 +117,12 @@
 	}
 	
 	function removeScore(){
-		score = score - 1;
+		if(score >= 5) {
+			score = score - (score * 0.50);
+		}
+		else{
+			score = score - 2;
+		}
 	}
 	
 	$(".game").click(
@@ -142,7 +157,10 @@
 				} 
 				else{
 				removeScore();
-				$("#myScore").html("You cant click that!. You have clicked " + score + " times!")
+				$("#myScore").html("Wrong button! You have clicked " + score + " times!")
+				if(score <= -5){
+					gameLost();
+				}
 				}
 			}
 			}
